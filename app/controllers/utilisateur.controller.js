@@ -292,6 +292,8 @@ exports.login = async (req, res) => {
       photo_de_profile: utilisateur.photo_de_profile,
       photo_url: photoUrl,
       location: utilisateur.location,
+      numTel: utilisateur.numTel || '',
+      facebook: utilisateur.facebook || ''
     });
   } catch (err) {
     console.error('Error during login:', err);

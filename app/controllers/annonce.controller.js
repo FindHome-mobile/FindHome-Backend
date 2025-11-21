@@ -5,6 +5,11 @@ const path = require('path');
 
 exports.create = async (req, res) => {
   try {
+    console.log('📝 Request body:', req.body);
+    console.log('📁 Files:', req.files ? req.files.length : 0);
+    console.log('📋 Body keys:', Object.keys(req.body));
+    console.log('📞 Téléphone reçu:', req.body.telephone);
+    
     const {
       titre,
       description,
@@ -22,8 +27,15 @@ exports.create = async (req, res) => {
       chauffage,
       balcon,
       jardin,
-      piscine
+      piscine,
+      telephone
     } = req.body;
+    
+    // Vérifier que le téléphone est fourni
+    if (!telephone || telephone.trim() === '') {
+      console.error('❌ Téléphone manquant ou vide');
+      return res.status(400).send({ message: 'Le numéro de téléphone est requis' });
+    }
 
     const proprietaire = await Utilisateur.findById(req.body.proprietaire);
     if (!proprietaire) {
@@ -63,7 +75,7 @@ exports.create = async (req, res) => {
       jardin: jardin === 'true',
       piscine: piscine === 'true',
       proprietaire: proprietaire._id,
-      telephone: proprietaire.numTel || '',
+      telephone: telephone.trim() || proprietaire.numTel || '',
       facebook: proprietaire.facebook || ''
     });
 
