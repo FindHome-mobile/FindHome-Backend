@@ -6,6 +6,9 @@ const helmet = require('helmet');
 const path = require('path');
 const fs = require('fs');
 
+// Gestion des erreurs async dans Express
+require('express-async-errors');
+
 const app = express();
 
 // Middleware
