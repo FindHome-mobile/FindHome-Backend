@@ -6,6 +6,9 @@ const helmet = require('helmet');
 const path = require('path');
 const fs = require('fs');
 
+// Gestion des erreurs async dans Express
+require('express-async-errors');
+
 const app = express();
 
 // Middleware
@@ -126,6 +129,7 @@ app.use('/api/utilisateurs', require('./app/routes/utilisateur.routes'));
 app.use('/api/annonces', require('./app/routes/annonce.routes'));
 app.use('/api/favoris', require('./app/routes/favori.routes'));
 app.use('/api/messages', require('./app/routes/message.routes'));
+app.use('/api/demandes-proprietaire', require('./app/routes/demandeProprietaire.routes'));
 // Route de base
 app.get('/', (req, res) => {
   res.send('Serveur HomeFind en fonctionnement');
